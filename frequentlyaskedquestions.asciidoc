@@ -1,0 +1,68 @@
+During the CSC8104 coursework practicals, demonstrators will collect frequently asked questions which will then appear here. If you are encountering an issue should also consult the Blackboard discussion boards to see if your issue has already been raised by one of your colleagues.
+
+== Can I use the version of Eclipse IDE provided as part of CS Portable Apps?
+No. The version of Eclipse IDE provided as part of CS Portable Apps is an old version which does not support the m2eclipse plugin. We suggest you download a copy of the latest version of Eclipse (Luna) from http://eclipse.org. The version you should download is "Eclipse IDE for Java EE Developers".
+
+== I can't see the .m2 folder mentioned in the tutorial for configuring Maven.
+Don't worry. If you do not already have a ".m2" folder, you can simply create one and place the new settings.xml file inside.
+
+== When running `mvn clean test -Parq-jbossas-remote` I get the error `Cannot deploy: test.war`
+At the top of the example test which you have been given as part of the quickstart (`ContactRegistrationTest.java`) you will see a `createTestArchive()` method annotated with `@Deployment`.
+This method is used to create a small .war file, containing the classes and their dependencies which are needed for your test.
+The general `createTestArchive()` method which we recommend is as follows:
+
+``` java
+    @Deployment
+    public static Archive<?> createTestArchive() {
+        //HttpComponents and org.JSON are required by ContactService
+        File[] libs = Maven.resolver().loadPomFromFile("pom.xml").resolve(
+                "org.apache.httpcomponents:httpclient:4.3.2",
+                "org.json:json:20140107",
+                "org.codehaus.jackson:jackson-core-asl:1.9.9",
+                "org.codehaus.jackson:jackson-mapper-asl:1.9.9",
+                "org.codehaus.jackson:jackson-jaxrs:1.9.9"
+        ).withTransitivity().asFile();
+
+        Archive<?> archive = ShrinkWrap
+            .create(WebArchive.class, "test.war")
+            .addPackages(true, "org.jboss.quickstarts.wfk")
+            .addAsLibraries(libs)
+            .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
+            .addAsWebInfResource("arquillian-ds.xml")
+            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+        
+        return archive;
+    }
+```
+
+If you still run into problems, please ask a demonstrator for help.
+
+== I can't work out how to do `"..."`
+
+The base quickstart which you have been provided with has been heavily modified to include extensive comments and clear examples of the techniques we expect you to use.
+If you cannot work out how to do a step in the coursework, we suggest you look closely at how it is done in the quickstart.
+
+Failing that we suggest the following useful documentation:  
+
+* link:http://docs.jboss.org/hibernate/orm/4.2/manual/en-US/html/[Hibernate docs]
+* link:http://docs.jboss.org/resteasy/docs/2.3.7.Final/userguide/html_single/index.html[JaxRS / RestEasy docs]
+* link:https://github.com/FasterXML/jackson-docs[Jackson docs (we use v1.9.*)]
+* link:http://hc.apache.org/httpcomponents-client-4.3.x/index.html[Apache HttpClient docs]
+
+== Can I use `"..."` instead of cURL?
+
+There are several good plugins which replicate the functionality of the cURL command line tool in a more user friendly manner.
+We don't mind if you choose to use one of these tools instead of cURL when testing your application. 
+
+Infact, we recommend a great Chrome extension called link:https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm?hl=en[Postman].
+
+== What if my customer's details have already been taken on someone else's service?
+
+When working on part 2 of the coursework, you will encounter the requirement to make bookings between a customer in your service, and commodities (Flights, Taxis & Hotels) from external services.
+This could be difficult if you use common email addresses for your customers (john.smith@example.com etc...).
+
+Our suggestion is that you follow how such a system would work in the real world: a travel agency *is* the customer from the point of view of the commodity service.
+Your own records should record the relationship between the actual customer (John Smith) and the various external booking ids, but the external services need have no knowledge of John Smith or his details.
+
+Once you have decided on whose services to use in part 2 (and the details of your travel agent customer), we advise that you ask those students to add your Travel Agent customer's details to their import.sql.
+This will mean that your travel agent customer will always exist on all external services it attempts to make bookings with.

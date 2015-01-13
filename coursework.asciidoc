@@ -1,0 +1,216 @@
+= CSC8104: Enterprise Middleware Coursework, November 2014
+
+== Outline
+This coursework is designed to give you experience building Java EE 6 applications and deploying them to the Cloud. You will build a real-world application using real enterprise technologies. This coursework provides you with an opportunity to work on an entire application, from the data-storage through to the web frontend. As a result you will need to become familiar with a wide range of technologies. It is important that you start the work early and ask for help when needed. By completing this coursework, you will gain some useful experience and skills.
+
+In Part One you will build a simple service, hosted on a Platform as a Service Cloud. The service should be accessible through a RESTful JSON api and accompanied by a selection of tests to demonstrate that it satisfies the provided requirements.
+
+In Part Two you will create a more complex service, building upon the simple services built by yourself and your colleagues' services in Part One. This service should also be accompanied by tests and JSON endpoints.
+
+Parts Three and Four involve modifying the frontend component of the base application to work with your new services. 
+
+IMPORTANT: You must complete the provided Tutorial before attempting this coursework. There are a number of pre-requisite steps in the tutorial that must be done for the coursework to function.
+
+== Technologies
+This coursework covers a large number of technologies. The challenge here is to learn the right bits of each technology in order to complete the coursework.
+
+* *Java EE 6*. Java Enterprise Edition is the technology you will use to develop your application.
+* *JPA*. The Java Persistence API provides a Java API onto your application's data.
+* *JSON*. This is the data serialization and interchange format used by Javascript and commonly returned by HTTP APIs.
+* *Bean Validation*. This technology allows you to specify constraints on your data and assists with validation.
+* *Arquillian*. With this tool you will be able to write tests that run inside the application server.
+* *Maven*. Your application will be built and deployed with this tool.
+* *Openshift*. This is the Platform as a Service (PaaS) that you will use to deploy your application to the Cloud.
+* *JAX-RS*. This technology provides the Java EE API for developing REST services. You will use this technology to communicate between distributed components of your application (web-interfaces & other services). 
+* *Git*. This is a distributed version control system and will be used to backup your code and for deploying it to OpenShift.
+* *Angular.js*. This is a Javascript technology used to construct the web-interfaces to your application. _Understanding this is only required for parts 3 & 4._
+ 
+== Project Requirements
+
+
+*Building your work* 
+==========================
+For this project you *must* use a link:http://maven.apache.org/[Maven] build for your application. You may use the Maven build file (pom.xml) provided as part of the tutorial.
+==========================
+
+*Storing your work*
+==========================
+You should save your work using the link:http://git-scm.com/[Git] version control system, regularly commiting changes and pushing to the provided link:http://github.com/[Github] repositoy.  
+
+You should push commits of your coursework regularly to your GitHub repo. It is a good idea to do so every time you get a small piece of functionality working. This ensures that you can move back to a working state if you get in a mess. It also ensures that you have a backup and that the demonstrators can view your code and track progress.
+
+TIP: You will be awarded a considerable number of marks for your distribution and use of version control. We expect to see a steady flow of sensible commits to Github over the coursework period.
+==========================
+
+*Testing your work*
+==========================
+You *must* produce link:http://arquillian.org/[Arquillian] tests for testing your application. These tests will be executed as part of your Maven build.
+==========================
+ 
+== General Process
+You should build on the _contacts-angularjs_ example from the tutorial. You do not have time to create a new application from scratch. Don't worry about renaming the packages or the OpenShift application name, doing so is likely to get you into a mess.
+
+The easiest way to work, is to deploy your application to a local version of JBoss EAP during development. Push your code to OpenShift periodically, when you have a new set of features working and all your tests pass. This is especially important for part 2, as you will cause your colleagues problems if your service becomes unavailable.
+
+== Notes
+
+During parts 1 & 2 of the coursework you must not work on any frontend. You should instead test your API through Arquillian tests and one of the other methods presented to you during the tutorial (The command line and CURL, or Chrome and Postman).
+
+Before undertaking parts 3 & 4 of the coursework you will need to familiarise yourself with the link:https://angularjs.org/[Angular.js] framework. We suggest going through the link:https://code.angularjs.org/1.2.8/docs/tutorial[official tutorial] to achieve this.
+
+== Part 1 - Weight (40 %)
+
+Produce an API offering either Taxi, Hotel or Flight bookings. You have been alocated a specific service type (see the end of the tutorial document). Your API *must* conform to link:http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api[RESTful design principles] and should return link:http://json.org/example[JSON]. Finally you must construct Arquillian tests to demonstrate that your service satisfies those link:https://github.com/NewcastleComputingScience/csc8104-assignment/tree/master/stories[user stories] relevant to your allocated service.
+
+IMPORTANT: You have been allocated a service to implement. See the allocation list in the tutorial document for details. You MUST implement the service that you have been allocated.
+
+The following diagram shows the architecture you will need to implement for your application:
+
+image:images/architecture-p1.png["Part 1 architechture diagram",align="center"]
+
+Through this architecture you can support multiple different forms of client to the service. Here your automated tests act as the primary example, but you could quite easily also develop a mobile application or website using the same REST services.
+
+* *Unit Tests*. These are implemented using the Arquillian testing framework and send requests to your REST services, validating the responses against some expected response.
+* *REST Services*. These are implemented using link:http://docs.jboss.org/resteasy/docs/2.3.7.Final/userguide/html/index.html[RESTEasy] (a JBoss implementation of the JAX-RS JSR) and provide a service interface to your application. These services are responsible for managing bookings, users and taxis/hotels/flights. 
+* *Persistence layer*. This layer provides a Java interface for accessing the data in the database, using the Java Persistence API (JPA).
+* *Database*. This is where your data is stored. Your application won't access this directly as it will use JPA to interface with the data. 
+
+=== RESTful Resources
+You will need to produce three RESTful resources:
+
+1. Customer. (A user)
+2. Taxi/Hotel/Flight. (A commodity)
+3. Booking. (A relationship between a user and a commodity, with additional attributes)
+
+Your API should provide endpoints to perform the following actions on the your resources:
+
+* Create & List Customers.
+* Create & List Taxis, Rooms or Flights.
+* Create, List & Cancel Bookings.
+
+You must document your endpoints, including:
+
+* Their URL structure.
+* Their expected request format.
+* Their expected response format.
+
+This is essential for any third-party who wishes to use your service. In particular, you will need to make this available to any colleagues using your service in Part 2. An example of good REST documentation is included in the base quickstart and can be found link:https://github.com/NewcastleComputingScience/jboss-wfk-quickstarts/blob/ncl-specific-contacts-fixes/contacts-angularjs/SERVICES.md[here].
+
+TIP: If you are unfamiliar with the specifics of RESTful APIs there are some good resources available link:http://docs.oracle.com/javaee/6/tutorial/doc/giepu.html[here] & link:http://www.restapitutorial.com/[here].
+
+=== Persistence Layer
+
+You will probably need an Entity for each of your resources.
+
+1. Customer. A bean to hold the data you wish to collect about each customer.
+2. Taxi/Flight/Hotel. A bean to hold the data you wish to collect about each item you have available for booking.
+3. Booking. A bean representing the booking and linking to the customer who made the booking and to the item being booked.
+
+TIP: Keep these entities simple. Just provide the minimum information required to fullfil the requirements. Use @Annotations, like those found in the base _contacts-angularjs_, to specify validation constraints on your information (like the minimum length of a name). 
+
+TIP: When you are testing your application from the command line you may find it useful to pre-populate your database with a number of example entities. One way to achieve this is to add SQL insert statements into src/main/resources/import.sql.
+
+TIP: When you are testing your application you will find it useful to view the queries run against your database. You can enable logging of this information by setting the "hibernate.show_sql" property to true in src/main/resources/META-INF/persistence.xml.
+
+=== Report Hints
+* Describe the composition of your service, including each of the JAX-RS services and how they interact. You might like to draw a diagram like the one above to help explain your architecture.
+
+== Part 2 - Weight (30 %)
+You will now need to integrate three REST resources to produce a fourth, aggregate, resource: a TravelAgent resoure. You will use your own resources and along with two more made available through the APIs of your colleagues.
+The resources you need to integrate are: 
+
+* 1 x Hotel resource
+* 1 x Taxi resource
+* 1 x Flight resource 
+
+You must ensure that either every part of a booking is made, or no parts of the booking are made. Remember, each part of the booking can be cancelled using the provided cancel operation. For example, the user would not want to book a flight, if they didn't have somewhere to stay at the destination.
+This will allow you to easily control which booking fails and which succeeds. You should set up a scenario where the first two bookings succeed and the remaining booking fails. Your TravelAgent resource should detect this failure and cancel the previous bookings that succeeded.
+
+IMPORTANT: It is very important that the user does not end up with a partial booking. Otherwise they may end up paying for a flight, without having a hotel to stay in.
+
+image:images/architecture-p2.png["Part 2 architechture diagram",align="center"]
+ 
+The diagram above shows the type of interaction that you should have achieved by completing part 2.
+
+TIP: You may find that you are ready to use your colleagues’ services before they are ready to make them available. If this happens then you can temporarily use your own service three times and then switch to your colleagues’ services when they become available.
+
+TIP: You may also find it hard to utilize the exact service types specified above, due to the progress of your colleagues. In this case you may duplicate the service types; for example, two Taxi services and one Flight service. However, you must make sure that the two services you select are offered by two different colleagues!
+
+TIP: You should create a Customer record in each of your colleague's applications to represent your travel agent.
+
+=== RESTful Resource
+
+Your TravelAgent resource should provide endpoints to perform the following actions:
+
+* Create, List & Cancel aggregate Bookings.
+
+As with Part 1, you should document your API endpoints. You should take care to detail your chosen mechanism of failure, so that error handling may be tested.
+
+=== Report Hints
+* What problems did you have utilising your colleagues’ services? How would these problems be exacerbated had the producers of these services not been in the same room?
+* What problems did you have offering your service to your colleagues?
+
+== Part 3 - Weight (20%)
+
+You should return to the frontend component of your application, written in Javascript using the link:https://angularjs.org/[Angular.js] framework. This code should be the same as that found in the original _contacts-angularjs_ application, unedited throughout the project so far.
+
+You must modify this frontend application to correctly interact with, and act as a client for, the API you produced in Part 1. Your application should be what is known as a **S**ingle **P**age **A**pplication: communicating asynchronously with APIs via link:http://en.wikipedia.org/wiki/Ajax_(programming)[AJAX], rather than requiring a page refresh.
+
+image:images/architecture-p3.png["Part 3 architecture diagram",align="center"]
+
+The diagram above gives a high level overview of application architecture from a _clientside centric_ perspective.
+
+* *Views*. These consitute the user interface markup, written in HTML.
+* *Controllers*. These define the actions and interactions of a View, written in Javascript. 
+* *ngResource*. The Angular link:https://docs.angularjs.org/api/ngResource/service/$resource[module] you must use for communication with your RESTful server side resources.
+
+=== Pages & Actions
+Your frontend application should provide the ability to perform the following actions:
+
+* Record a new Customer, with a: *Name*, an *Email* and a *Phone number*.
+* View a list of all currently stored Customer records.
+* Record a new Commodity (Taxi, Flight or Hotel) along with the appropriate identifying information (eg. *Registration* and *number of seats* for a Taxi).
+* View a list of all currently stored Commodity records.
+* Record a new Booking, with a: *Customer id* and a *Commodity id*.
+* View and manage a list of all currently stored Booking records associated with a particular customer.
+
+Your application should also generally provide appropriate visual indication of the success or failure of actions taken.
+
+IMPORTANT: You do *not* need to worry about providing automated tests of your frontend application.
+
+== Part 4 - Weight (10%)
+
+For the final part of this coursework you must further modify the frontend component of your application to interact with your TravelAgent resource and those resources of your Colleagues' upon which it depends.
+
+=== Pages & Actions 
+Your frontend application, in its final form, should provide the ability to perform the following additional actions:
+
+* View a list of all currently stored records for all three basic commodities.
+* Record a new TravelAgent Booking, with a: *Customer id* and all appropriate **Commodity id**s.
+* View and manage a list of all currently stored TravelAgent Booking records associated with a particular customer.
+
+IMPORTANT: You are being assessed *only* upon the functionality of your front end application. *No* marks will be awarded for non-functional visual changes.
+
+== Submission Guidelines
+
+=== Demonstration
+Prior to submission you will provide a 10-15 minute demonstration to one of the Course Demonstrators. You will be expected to describe your technical solution and discuss your personal experiences throughout the project.
+
+A sign-up sheet for demonstration slots will be made available in the Computer clusters during the first week of practical sessions.
+
+=== Coursework submission
+You must submit all work via the coursework submission system (NESS).
+This should constitute a zip file containing the project source code and Maven build scripts. We will use this zip file to test your submission, so it should contain everything necessary to build and test your project.
+
+You should also submit a short report via NESS (roughly three pages) summarising the work carried out on this project, and an evaluation of how much you achieved. We are particularly interested in any assumptions you made, and how they motivated particular design decisions. You should also provide a brief discussion of your personal experience of the development process; e.g. which aspects of the project did find particularly easy/hard?
+
+We have provided a list of things you should cover in your report in the "Report Hints" sections of this document.
+
+== Finally
+Demonstrators will be available in your cluster rooms during all practical sessions. You should go and see them if you are having any difficulties. This includes understanding what you have to do.
+
+Discussion Boards will also be available for CSC8104 in Blackboard (http://bb.ncl.ac.uk). You may post any questions about the tutorial or coursework assignment here, and the discussion boards will be monitored by Course Demonstrators. Before posting you should use the discussion boards' search facilities to see if somebody has already encountered the same problem.
+Also frequently asked questions will be posted by demonstrators link:https://github.com/NewcastleComputingScience/csc8104-assignment/blob/master/frequentlyaskedquestions.asciidoc[here].
+
+TIP: If you see a question on the discussion boards you know how to answer, we strongly encourage you to assist your colleagues!
+

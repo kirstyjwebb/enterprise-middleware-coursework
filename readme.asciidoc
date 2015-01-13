@@ -1,0 +1,9 @@
+= Enterprise Middleware Coursework
+
+
+
+== Building docs
+The following command builds the html version of this coursework:
+
+    asciidoctor -a stylesheet=./stylesheets/riak.css ./coursework.asciidoc
+    asciidoctor -a stylesheet=./stylesheets/riak.css ./tutorial.asciidoc
