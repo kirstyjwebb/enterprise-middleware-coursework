@@ -1,4 +1,4 @@
-= CSC8104: Enterprise Middleware Coursework, November 2014
+= Enterprise Middleware Coursework
 
 == Outline
 This coursework is designed to give you experience building Java EE 6 applications and deploying them to the Cloud. You will build a real-world application using real enterprise technologies. This coursework provides you with an opportunity to work on an entire application, from the data-storage through to the web frontend. As a result you will need to become familiar with a wide range of technologies. It is important that you start the work early and ask for help when needed. By completing this coursework, you will gain some useful experience and skills.
@@ -58,7 +58,7 @@ During parts 1 & 2 of the coursework you must not work on any frontend. You shou
 
 Before undertaking parts 3 & 4 of the coursework you will need to familiarise yourself with the link:https://angularjs.org/[Angular.js] framework. We suggest going through the link:https://code.angularjs.org/1.2.8/docs/tutorial[official tutorial] to achieve this.
 
-== Part 1 - Weight (40 %)
+== Part 1
 
 Produce an API offering either Taxi, Hotel or Flight bookings. You have been alocated a specific service type (see the end of the tutorial document). Your API *must* conform to link:http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api[RESTful design principles] and should return link:http://json.org/example[JSON]. Finally you must construct Arquillian tests to demonstrate that your service satisfies those link:https://github.com/NewcastleComputingScience/csc8104-assignment/tree/master/stories[user stories] relevant to your allocated service.
 
@@ -115,7 +115,7 @@ TIP: When you are testing your application you will find it useful to view the q
 === Report Hints
 * Describe the composition of your service, including each of the JAX-RS services and how they interact. You might like to draw a diagram like the one above to help explain your architecture.
 
-== Part 2 - Weight (30 %)
+== Part 2
 You will now need to integrate three REST resources to produce a fourth, aggregate, resource: a TravelAgent resoure. You will use your own resources and along with two more made available through the APIs of your colleagues.
 The resources you need to integrate are: 
 
@@ -150,7 +150,7 @@ As with Part 1, you should document your API endpoints. You should take care to 
 * What problems did you have utilising your colleagues’ services? How would these problems be exacerbated had the producers of these services not been in the same room?
 * What problems did you have offering your service to your colleagues?
 
-== Part 3 - Weight (20%)
+== Part 3
 
 You should return to the frontend component of your application, written in Javascript using the link:https://angularjs.org/[Angular.js] framework. This code should be the same as that found in the original _contacts-angularjs_ application, unedited throughout the project so far.
 
@@ -178,7 +178,7 @@ Your application should also generally provide appropriate visual indication of 
 
 IMPORTANT: You do *not* need to worry about providing automated tests of your frontend application.
 
-== Part 4 - Weight (10%)
+== Part 4
 
 For the final part of this coursework you must further modify the frontend component of your application to interact with your TravelAgent resource and those resources of your Colleagues' upon which it depends.
 
