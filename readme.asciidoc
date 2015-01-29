@@ -18,7 +18,7 @@ This document instructs the students how to setup the various accounts they requ
 It also guides them through setting up a sample application and then deploying it to the Cloud.
 This sample application us then used to build upon during the coursework.
 
-./tutorial.asciidoc[View the tutorial document]
+link:./tutorial.asciidoc[View the tutorial document]
 
 There is also a video available to https://www.youtube.com/watch?v=JGm2yS4JIog[watch here].
 In this video a member of staff, at Newcastle University, walks through the tutorial with the students.
@@ -27,7 +27,7 @@ This video has a few Newcastle specific bits in, but could be valuable to your s
 == Coursework
 This document tells the students what they need to do during the coursework.
 
-./coursework.asciidoc[View the coursework document]
+link:./coursework.asciidoc[View the coursework document]
 
 == Model Answer
 The model answer shows a completed version of the coursework.
