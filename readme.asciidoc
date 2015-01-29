@@ -4,7 +4,7 @@ This coursework covers the development of an enterprise application using Java E
 The coursework is designed to give students hands on experience with building enterprise applications.
 Furthermore, all the technologies used are production grade, given the students the experience and knowledge they need to build a real enterprise application.
 
-Note: This coursework was produced by Newcastle University (UK) in conjunction with Red Hat. It's available under an Open Source licence.
+NOTE: This coursework was produced by Newcastle University (UK) in conjunction with Red Hat. It's available under an Open Source licence.
 However, the exact licence is still to be decided.
 
 If you want to run this coursework at your University, then we encourage you to do so.
