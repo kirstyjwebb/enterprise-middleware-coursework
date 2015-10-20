@@ -57,13 +57,15 @@ We don't mind if you choose to use one of these tools instead of cURL when testi
 
 Infact, we recommend a great Chrome extension called link:https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm?hl=en[Postman].
 
+You may of course use your Swagger documentation to interact with your API, in addition to any other options.
+
 == What if my customer's details have already been taken on someone else's service?
 
-When working on part 2 of the coursework, you will encounter the requirement to make bookings between a customer in your service, and commodities (Flights, Taxis & Hotels) from external services.
+When working on part 3 of the coursework, you will encounter the requirement to make bookings between a customer in your service, and commodities (Flights, Taxis & Hotels) from external services.
 This could be difficult if you use common email addresses for your customers (john.smith@example.com etc...).
 
 Our suggestion is that you follow how such a system would work in the real world: a travel agency *is* the customer from the point of view of the commodity service.
 Your own records should record the relationship between the actual customer (John Smith) and the various external booking ids, but the external services need have no knowledge of John Smith or his details.
 
-Once you have decided on whose services to use in part 2 (and the details of your travel agent customer), we advise that you ask those students to add your Travel Agent customer's details to their import.sql.
+Once you have decided on whose services to use in part 3 (and the details of your travel agent customer), we advise that you ask those students to add your Travel Agent customer's details to their import.sql.
 This will mean that your travel agent customer will always exist on all external services it attempts to make bookings with.

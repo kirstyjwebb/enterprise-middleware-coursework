@@ -5,9 +5,11 @@ This coursework is designed to give you experience building Java EE 6 applicatio
 
 In Part One you will build a simple service, hosted on a Platform as a Service Cloud. The service should be accessible through a RESTful JSON api and accompanied by a selection of tests to demonstrate that it satisfies the provided requirements.
 
-In Part Two you will create a more complex service, building upon the simple services built by yourself and your colleagues' services in Part One. This service should also be accompanied by tests and JSON endpoints.
+In Part Two you will implement some advanced functionality upon the base service from Part One, such as cascading updates for related entities and a transactional endpoint.
 
-Parts Three and Four involve modifying the frontend component of the base application to work with your new services. 
+In Part Three you will create a new, more complex, service. It will make requests to your Part One service, along with those of two colleagues. This service should also be accompanied by more tests and JSON endpoints. These endpoints, and their responses, should match those expected by an [AngularJS](https://angularjs.org/) client application, which will be provided. If done correctly, you will have a functioning single-page web application (SPA) after this step.
+
+//In Part Four you will implement some advanced functionality upon the complex service from Part Three. Namely: using caching to reduce _upstream_ requests to the simple Part One services. 
 
 IMPORTANT: You must complete the provided Tutorial before attempting this coursework. There are a number of pre-requisite steps in the tutorial that must be done for the coursework to function.
 
@@ -16,6 +18,7 @@ This coursework covers a large number of technologies. The challenge here is to 
 
 * *Java EE 6*. Java Enterprise Edition is the technology you will use to develop your application.
 * *JPA*. The Java Persistence API provides a Java API onto your application's data.
+* *JTA*. The Java Transcation API is a general API for managing transactions in Java. It allows you to start, commit and rollback transactions in a resource neutral way.
 * *JSON*. This is the data serialization and interchange format used by Javascript and commonly returned by HTTP APIs.
 * *Bean Validation*. This technology allows you to specify constraints on your data and assists with validation.
 * *Arquillian*. With this tool you will be able to write tests that run inside the application server.
@@ -23,7 +26,7 @@ This coursework covers a large number of technologies. The challenge here is to 
 * *Openshift*. This is the Platform as a Service (PaaS) that you will use to deploy your application to the Cloud.
 * *JAX-RS*. This technology provides the Java EE API for developing REST services. You will use this technology to communicate between distributed components of your application (web-interfaces & other services). 
 * *Git*. This is a distributed version control system and will be used to backup your code and for deploying it to OpenShift.
-* *Angular.js*. This is a Javascript technology used to construct the web-interfaces to your application. _Understanding this is only required for parts 3 & 4._
+* *Swagger*. Swagger is a simple yet powerful representation of your RESTful API. Using Java @Annotations Swagger will generate documentation for JAX-RS endpoints as part of the project build process.
  
 == Project Requirements
 
@@ -48,30 +51,30 @@ You *must* produce link:http://arquillian.org/[Arquillian] tests for testing you
 ==========================
  
 == General Process
-You should build on the _contacts-angularjs_ example from the tutorial. You do not have time to create a new application from scratch. Don't worry about renaming the packages or the OpenShift application name, doing so is likely to get you into a mess.
+You should build on the _contacts-swagger_ example from the tutorial. You do not have time to create a new application from scratch. Don't worry about renaming the packages or the OpenShift application name, doing so is likely to get you into a mess.
 
-The easiest way to work, is to deploy your application to a local version of JBoss EAP during development. Push your code to OpenShift periodically, when you have a new set of features working and all your tests pass. This is especially important for part 2, as you will cause your colleagues problems if your service becomes unavailable.
+The easiest way to work, is to deploy your application to a local version of JBoss EAP during development. Only push your code to OpenShift periodically, when you have a new set of features working and all your tests pass. This is especially important for part three, as you will cause your colleagues problems if your service becomes unavailable.
 
 == Notes
 
-During parts 1 & 2 of the coursework you must not work on any frontend. You should instead test your API through Arquillian tests and one of the other methods presented to you during the tutorial (The command line and CURL, or Chrome and Postman).
+During parts 1 & 2 you will only test your API through Arquillian tests and one of the other methods presented to you during the tutorial (The Swagger documentation or CURL).
 
 Before undertaking parts 3 & 4 of the coursework you will need to familiarise yourself with the link:https://angularjs.org/[Angular.js] framework. We suggest going through the link:https://code.angularjs.org/1.2.8/docs/tutorial[official tutorial] to achieve this.
 
 == Part 1
 
-Produce an API offering either Taxi, Hotel or Flight bookings. You have been alocated a specific service type (see the end of the tutorial document). Your API *must* conform to link:http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api[RESTful design principles] and should return link:http://json.org/example[JSON]. Finally you must construct Arquillian tests to demonstrate that your service satisfies those link:https://github.com/NewcastleComputingScience/csc8104-assignment/tree/master/stories[user stories] relevant to your allocated service.
+Produce an API offering either Taxi, Hotel or Flight bookings. You have been alocated a specific service type (see the end of the tutorial document). Your API *must* conform to link:http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api[RESTful design principles] and should return link:http://json.org/example[JSON]. Finally you must construct Arquillian tests to demonstrate that your service satisfies those link:./stories[user stories] relevant to your allocated service.
 
-IMPORTANT: You have been allocated a service to implement. See the allocation list in the tutorial document for details. You MUST implement the service that you have been allocated.
+IMPORTANT: You have been allocated a service to implement. See the allocation you have been emailed for details. You MUST implement the service that you have been allocated.
 
 The following diagram shows the architecture you will need to implement for your application:
 
 image:images/architecture-p1.png["Part 1 architechture diagram",align="center"]
 
-Through this architecture you can support multiple different forms of client to the service. Here your automated tests act as the primary example, but you could quite easily also develop a mobile application or website using the same REST services.
+Through this architecture you can support multiple different forms of client to the service. Here your automated tests and Swagger documentation act as the primary examples, but you could quite easily also develop a mobile application or website using the same REST services.
 
 * *Unit Tests*. These are implemented using the Arquillian testing framework and send requests to your REST services, validating the responses against some expected response.
-* *REST Services*. These are implemented using link:http://docs.jboss.org/resteasy/docs/2.3.7.Final/userguide/html/index.html[RESTEasy] (a JBoss implementation of the JAX-RS JSR) and provide a service interface to your application. These services are responsible for managing bookings, users and taxis/hotels/flights. 
+* *REST Services*. These are implemented using link:http://docs.jboss.org/resteasy/docs/2.3.7.Final/userguide/html/index.html[RESTEasy] (a JBoss implementation of the JAX-RS Java Standards Recommendation (JSR)) and provide a service interface to your application. These services are responsible for managing bookings, users and taxis/hotels/flights. 
 * *Persistence layer*. This layer provides a Java interface for accessing the data in the database, using the Java Persistence API (JPA).
 * *Database*. This is where your data is stored. Your application won't access this directly as it will use JPA to interface with the data. 
 
@@ -88,13 +91,19 @@ Your API should provide endpoints to perform the following actions on the your r
 * Create & List Taxis, Rooms or Flights.
 * Create, List & Cancel Bookings.
 
-You must document your endpoints, including:
+You must document your endpoints using Swagger [@Annotations](https://github.com/swagger-api/swagger-core/wiki/Annotations-1.5.X), including:
 
-* Their URL structure.
-* Their expected request format.
+* Their purpose.
+* Their expected URL structure & request method.
+* Their expected request values.
 * Their expected response format.
+* Possible HTTP response codes and the reasons for them.
 
-This is essential for any third-party who wishes to use your service. In particular, you will need to make this available to any colleagues using your service in Part 2. An example of good REST documentation is included in the base quickstart and can be found link:https://github.com/NewcastleComputingScience/jboss-wfk-quickstarts/blob/ncl-specific-contacts-fixes/contacts-angularjs/SERVICES.md[here].
+
+
+This is essential for any third-party who wishes to use your service. You will need to refer any colleagues using your service in Part 3 to your Swagger doc page, which will be deployed to Openshift along with your service. An example of good Swagger documentation is included in the base quickstart.
+
+TIP: Much of the information about each REST endpoint, such as URL structure and request method, may be automatically discovered by Swagger. All Swagger @Annotations should be included in the relevant `*RestService` class.
 
 TIP: If you are unfamiliar with the specifics of RESTful APIs there are some good resources available link:http://docs.oracle.com/javaee/6/tutorial/doc/giepu.html[here] & link:http://www.restapitutorial.com/[here].
 
@@ -106,9 +115,9 @@ You will probably need an Entity for each of your resources.
 2. Taxi/Flight/Hotel. A bean to hold the data you wish to collect about each item you have available for booking.
 3. Booking. A bean representing the booking and linking to the customer who made the booking and to the item being booked.
 
-TIP: Keep these entities simple. Just provide the minimum information required to fullfil the requirements. Use @Annotations, like those found in the base _contacts-angularjs_, to specify validation constraints on your information (like the minimum length of a name). 
+TIP: Keep these entities simple. Just provide the minimum information required to fullfil the requirements. Use @Annotations, like those found in the base _contacts-swagger_ `Contact` class, to specify validation constraints on your information (like the minimum length of a name). 
 
-TIP: When you are testing your application from the command line you may find it useful to pre-populate your database with a number of example entities. One way to achieve this is to add SQL insert statements into src/main/resources/import.sql.
+TIP: When you are testing your application you may find it useful to pre-populate your database with a number of example entities. One way to achieve this is to add SQL insert statements into src/main/resources/import.sql.
 
 TIP: When you are testing your application you will find it useful to view the queries run against your database. You can enable logging of this information by setting the "hibernate.show_sql" property to true in src/main/resources/META-INF/persistence.xml.
 
@@ -116,7 +125,26 @@ TIP: When you are testing your application you will find it useful to view the q
 * Describe the composition of your service, including each of the JAX-RS services and how they interact. You might like to draw a diagram like the one above to help explain your architecture.
 
 == Part 2
-You will now need to integrate three REST resources to produce a fourth, aggregate, resource: a TravelAgent resoure. You will use your own resources and along with two more made available through the APIs of your colleagues.
+You will now need to add some advanced features to your base REST resources from Part One. 
+These features are:
+
+* REST endpoints to allow for the deletion of Customer and Commodity (Taxi/Hotel/Flight) resources.
+* _Cascading_ deletion of related entities. Specifically, if a Commodity entity is deleted then any bookings made *for* it should also be deleted. Likewise, if a Customer entity is deleted, any bookings made *by* it should also be deleted.
+* A `GuestBooking` transactional endpoint which creates a customer and a booking in a single transaction.
+
+=== Transactional Endpoint.
+
+You must create a `GuestBooking` ...
+
+TIP: The automatic deletion of related entities should be handled with Hibernate [relationship @Annotations](https://docs.jboss.org/hibernate/stable/annotations/reference/en/html_single/#entity-mapping-association) (e.g. `@ManyToOne`, `@ManyToMany` etc...).
+
+=== Report Hints
+
+* Why are transactions useful here? What scenario do they help to prevent.
+* Discuss the benefits and drawbacks of using Hibernate @Annotations to automatically handle entity relationships. Highlight any pitfalls you encountered.
+
+== Part 3
+You will now need to integrate three _commodity_ REST resources to produce a fourth, aggregate, resource: a TravelAgent resource. You will use your own resources and along with two more made available through the APIs of your colleagues.
 The resources you need to integrate are: 
 
 * 1 x Hotel resource
@@ -136,7 +164,7 @@ TIP: You may find that you are ready to use your colleagues’ services before t
 
 TIP: You may also find it hard to utilize the exact service types specified above, due to the progress of your colleagues. In this case you may duplicate the service types; for example, two Taxi services and one Flight service. However, you must make sure that the two services you select are offered by two different colleagues!
 
-TIP: You should create a Customer record in each of your colleague's applications to represent your travel agent.
+TIP: You should create a Customer record in each of your colleague's applications to represent the customer of bookings made by your travel agent. You should *not* try and create a new customer with each base service for every TravelAgent booking. This makes the TravelAgent service more complex to implement, and is not how a real travel agent would work in any case.
 
 === RESTful Resource
 
@@ -144,17 +172,28 @@ Your TravelAgent resource should provide endpoints to perform the following acti
 
 * Create, List & Cancel aggregate Bookings.
 
-As with Part 1, you should document your API endpoints. You should take care to detail your chosen mechanism of failure, so that error handling may be tested.
+As with Part 1, you should document your API endpoints using Swagger @Annotations. You should take care to detail the possible failure responses, including their causes. This means that error handling may be tests.
 
 === Report Hints
 * What problems did you have utilising your colleagues’ services? How would these problems be exacerbated had the producers of these services not been in the same room?
 * What problems did you have offering your service to your colleagues?
 
-== Part 3
+=== Frontend application
 
-You should return to the frontend component of your application, written in Javascript using the link:https://angularjs.org/[Angular.js] framework. This code should be the same as that found in the original _contacts-angularjs_ application, unedited throughout the project so far.
+You have been provided with a complete frontend for your Travel Agent application, written in Javascript using the link:https://angularjs.org/[Angular.js] framework. This code found in the contacts-swagger quickstart in `src/main/webapp/travelagent/`. When your service is deployed, the frontend application will be accessible at link:http://localhost:8080/jboss-contacts-swagger/travelagent/[localhost:8080/jboss-contacts-swagger/travelagent/] 
 
-You must modify this frontend application to correctly interact with, and act as a client for, the API you produced in Part 1. Your application should be what is known as a **S**ingle **P**age **A**pplication: communicating asynchronously with APIs via link:http://en.wikipedia.org/wiki/Ajax_(programming)[AJAX], rather than requiring a page refresh.
+You must modify this frontend application to correctly interact with, and act as a client for, the TravelAgent API you have produced.
+To do this you simply provide the base urls which corresponds to the url of your TravelAgent REST endpoints in the files:
+
+* `src/foo/bar/Booking.js`
+* `src/foo/bar/Customer.js`
+* `src/foo/bar/Flight.js`
+* `src/foo/bar/Hotel.js`
+* `src/foo/bar/Taxi.js`
+
+Where to provide the URL in the javascript sources is marked inline with comments for you. 
+
+The frontend application is what is known as a **S**ingle **P**age **A**pplication: communicating asynchronously with APIs via link:http://en.wikipedia.org/wiki/Ajax_(programming)[AJAX], rather than requiring a page refresh.
 
 image:images/architecture-p3.png["Part 3 architecture diagram",align="center"]
 
@@ -162,34 +201,20 @@ The diagram above gives a high level overview of application architecture from a
 
 * *Views*. These consitute the user interface markup, written in HTML.
 * *Controllers*. These define the actions and interactions of a View, written in Javascript. 
-* *ngResource*. The Angular link:https://docs.angularjs.org/api/ngResource/service/$resource[module] you must use for communication with your RESTful server side resources.
+* *ngResource*. The Angular link:https://docs.angularjs.org/api/ngResource/service/$resource[module] used for communication with your RESTful server side resources.
 
-=== Pages & Actions
-Your frontend application should provide the ability to perform the following actions:
-
-* Record a new Customer, with a: *Name*, an *Email* and a *Phone number*.
-* View a list of all currently stored Customer records.
-* Record a new Commodity (Taxi, Flight or Hotel) along with the appropriate identifying information (eg. *Registration* and *number of seats* for a Taxi).
-* View a list of all currently stored Commodity records.
-* Record a new Booking, with a: *Customer id* and a *Commodity id*.
-* View and manage a list of all currently stored Booking records associated with a particular customer.
-
-Your application should also generally provide appropriate visual indication of the success or failure of actions taken.
-
-IMPORTANT: You do *not* need to worry about providing automated tests of your frontend application.
-
-== Part 4
-
-For the final part of this coursework you must further modify the frontend component of your application to interact with your TravelAgent resource and those resources of your Colleagues' upon which it depends.
+TIP: The ngResource module makes some fairly strict assumptions about the structure of a RESTful API. If your API does not follow REST best practices then the frontend will not work even after you have provided the url. 
 
 === Pages & Actions 
-Your frontend application, in its final form, should provide the ability to perform the following additional actions:
+Your frontend application, when provided with the correct service URL, provides the ability to perform the following additional actions:
 
 * View a list of all currently stored records for all three basic commodities.
+* Create a new Customer record.
+* View a list of all Customer records currently stored by the TravelAgent service.
 * Record a new TravelAgent Booking, with a: *Customer id* and all appropriate **Commodity id**s.
 * View and manage a list of all currently stored TravelAgent Booking records associated with a particular customer.
 
-IMPORTANT: You are being assessed *only* upon the functionality of your front end application. *No* marks will be awarded for non-functional visual changes.
+The application will also generally provide appropriate visual indication of the success or failure of any actions taken.
 
 == Submission Guidelines
 
@@ -202,7 +227,7 @@ A sign-up sheet for demonstration slots will be made available in the Computer c
 You must submit all work via the coursework submission system (NESS).
 This should constitute a zip file containing the project source code and Maven build scripts. We will use this zip file to test your submission, so it should contain everything necessary to build and test your project.
 
-You should also submit a short report via NESS (roughly three pages) summarising the work carried out on this project, and an evaluation of how much you achieved. We are particularly interested in any assumptions you made, and how they motivated particular design decisions. You should also provide a brief discussion of your personal experience of the development process; e.g. which aspects of the project did find particularly easy/hard?
+You should also submit a short report via NESS (roughly three pages) summarising the work carried out on this project, and an evaluation of how much you achieved. We are particularly interested in any assumptions you made, and how they motivated particular design decisions. You should also provide a brief discussion of your personal experience of the development process; e.g. which aspects of the project did you find particularly easy/hard?
 
 We have provided a list of things you should cover in your report in the "Report Hints" sections of this document.
 

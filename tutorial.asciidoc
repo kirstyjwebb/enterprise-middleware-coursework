@@ -55,16 +55,16 @@ Therefore, it is very important that you get this working and become familiar wi
 2. Download the zip distribution of JBoss EAP 6.3.0.GA. _Note:_ You need to make sure you use this version of JBoss EAP as this matches the version you will be using on OpenShift. You will be required to register for the https://community.jboss.org/[JBoss community] website as part of the download process.
 3. Unzip JBoss EAP to somewhere on your computer.
 
-=== Obtain the Contacts-Angularjs Quickstart
+=== Obtain the Contacts-Swagger Quickstart
 
 1. Visit the NewcastleComputingScience/jboss-wfk-quickstarts github repo release page link:https://github.com/NewcastleComputingScience/jboss-wfk-quickstarts/releases/tag/v2.7.0-SNAPSHOT%2BNCL201415-RC4[here].
 2. Click on the *Download ZIP* link to obtain all the Quickstarts
 3. Unzip the download to somewhere on your computer.
-4. Open a terminal and go to the `contacts-angularjs` directory in the quickstart bundle you just unzipped.
+4. Open a terminal and go to the `contacts-swagger` directory in the quickstart bundle you just unzipped.
 
 
 === Run the Quickstart
-1. Step through the instructions on the Contacts-AngularJS quickstart page link:https://github.com/NewcastleComputingScience/jboss-wfk-quickstarts/tree/v2.7.0-SNAPSHOT+NCL201415-RC4/contacts-angularjs[here], upto and including section "Run the Arquillian Functional Tests". Make sure you follow the "Configure Maven" section correctly as these instructions are important.
+1. Step through the instructions on the Contacts-Swagger quickstart page link:https://github.com/NewcastleComputingScience/jboss-wfk-quickstarts/tree/v2.7.0-SNAPSHOT+NCL201415-RC4/contacts-swagger[here], upto and including section "Run the Arquillian Functional Tests". Make sure you follow the "Configure Maven" section correctly as these instructions are important.
 2. Now follow the "Build and Deploy the Quickstart to OpenShift" instructions link:https://github.com/NewcastleComputingScience/jboss-wfk-quickstarts/blob/v2.7.0-SNAPSHOT+NCL201415-RC4/README.md#build-and-deploy-the-quickstart---to-openshift[here], including all the sub-sections that take you to the end of the page.
 
 
@@ -81,9 +81,9 @@ If you want to use Eclipse to edit the contacts-angularjs example (and your cour
 == Working with Git
 You will be using Git in the coursework for regular checkpoint and backup of your code to GitHub.
 You will also use Git to deploy new versions of your application to OpenShift.
-This section will show you how to create a copy of the 'contacts-angularjs' example, ready fo you to extend in the coursework, and also how to push the code to GitHub and OpenShift.
+This section will show you how to create a copy of the 'contacts-swagger' example, ready fo you to extend in the coursework, and also how to push the code to GitHub and OpenShift.
 
-* Build on top of the contacts-angularjs example, by moving your clone of the OpenShift git repository at contacts-angularjs/contactsangularjs to some other location on your disk, where you want to develop your coursework submission.
+* Build on top of the contacts-swagger example, by moving your clone of the OpenShift git repository at contacts-swagger to some other location on your disk, where you want to develop your coursework submission.
 
 * Now you need to be able to push your code to your git repository on GitHub. To do this, you will need the url of the private repository created earlier.
 
@@ -112,7 +112,7 @@ You can access the console at http://localhost:8080/h2console.
 To log into the datasource for your application, use the following details.
 
     Driver Class: javax.naming.InitialContext
-    JDBC URL: Your JDBC URL is available in your persistence.xml file, and can be found between the <jta-data-source> tags e.g. java:jboss/datasources/KitchensinkAngularJSQuickstartDS
+    JDBC URL: Your JDBC URL is available in your persistence.xml file, and can be found between the <jta-data-source> tags e.g. java:jboss/datasources/ContactsSwaggerQuickstartDS
     Username: sa
     Passowrd: sa
 
@@ -126,15 +126,21 @@ TIP: Your persistence.xml is the configuration file used to specify the connecti
 
 Besides the Arquillian tests run through maven, you will occasionally want to test your API in a more manual fashion, in order to clearly see what information is being sent and received.
 
-One common method for sending network requests from the command line is a tool called link:http://curl.haxx.se/[cURL].
+It is partly for this purpose that the Contacts-Swagger quickstart uses the [Swagger](http://swagger.io) tool to generate API documentation. 
 
-cURL should already be installed on your machines, if it is not, please contact the teaching staff as soon as possible.
+Not only does Swagger use [annotations](https://github.com/swagger-api/swagger-core/wiki/Annotations-1.5.X) to automatically generate attractive documentation for API endpoints, but this documentation is interactive.
+This allows you to run each supported http operation from the documentation webpage with sample input and see the response JSON.
+An example of swagger documentation can be found [here](http://petstore.swagger.io/).
+
+Another common method of manual testing is of APIs is sending http requests from the command line, using a tool called link:http://curl.haxx.se/[cURL].
+
+cURL should already be installed on your machines, if it is not, please contact the teaching staff.
 
 To give you an example of how you might use cURL to see what your API is doing, once the QuickStart is running (locally) you could execute the following commands (in cmd.exe):
 
 * to see a list of all contacts returned, formatted as JSON and accompanied by all HTTP headers.
 
-    curl -v http://localhost:8080/jboss-contacts-angularjs/rest/contacts/
+    curl -v http://localhost:8080/jboss-contacts-swagger/api/contacts/
 
 * to create a new contacts.
 
@@ -142,6 +148,6 @@ To give you an example of how you might use cURL to see what your API is doing, 
 
 The *-v* switch instructs curl to display all possible information, whilst the *-X* switch allows you to specify the HTTP method to be used and *-d* the data to be sent.
 
-NOTE: In the above URLs "jboss-contacts-angularjs" is the name of the deployed .war file.
+NOTE: In the above URLs "jboss-contacts-swagger" is the name of the deployed .war file.
 
 TIP: If you would like to learn more about how to use cURL, you can refer to the link:http://curl.haxx.se/docs/manpage.html[official documentation] or link:http://code.tutsplus.com/tutorials/a-beginners-guide-to-http-and-rest--net-16340[this] useful tutorial.
