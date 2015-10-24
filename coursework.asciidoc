@@ -107,6 +107,8 @@ TIP: Much of the information about each REST endpoint, such as URL structure and
 
 TIP: If you are unfamiliar with the specifics of RESTful APIs there are some good resources available link:http://docs.oracle.com/javaee/6/tutorial/doc/giepu.html[here] & link:http://www.restapitutorial.com/[here].
 
+TIP: When adding new packages for your new restful resources, make sure to add them to the Swagger config in `ContactServiceApplication`, as per the comments in that class.
+
 === Persistence Layer
 
 You will probably need an Entity for each of your resources.
@@ -145,6 +147,9 @@ TIP: The automatic deletion of related entities should be handled with Hibernate
 
 == Part 3
 You will now need to integrate three _commodity_ REST resources to produce a fourth, aggregate, resource: a TravelAgent resource. You will use your own resources and along with two more made available through the APIs of your colleagues.
+
+You will do this using the link:http://docs.jboss.org/resteasy/docs/2.3.7.Final/userguide/html_single/index.html#RESTEasy_Client_Framework[RESTEasy client framework], as exemplified by the `contact-swagger` quickstart's `area` package.
+
 The resources you need to integrate are: 
 
 * 1 x Hotel resource
@@ -158,7 +163,7 @@ IMPORTANT: It is very important that the user does not end up with a partial boo
 
 image:images/architecture-p2.png["Part 2 architechture diagram",align="center"]
  
-The diagram above shows the type of interaction that you should have achieved by completing part 2.
+The diagram above shows the type of interaction that you should have achieved by completing part 3.
 
 TIP: You may find that you are ready to use your colleagues’ services before they are ready to make them available. If this happens then you can temporarily use your own service three times and then switch to your colleagues’ services when they become available.
 
@@ -185,11 +190,9 @@ You have been provided with a complete frontend for your Travel Agent applicatio
 You must modify this frontend application to correctly interact with, and act as a client for, the TravelAgent API you have produced.
 To do this you simply provide the base urls which corresponds to the url of your TravelAgent REST endpoints in the files:
 
-* `src/foo/bar/Booking.js`
-* `src/foo/bar/Customer.js`
-* `src/foo/bar/Flight.js`
-* `src/foo/bar/Hotel.js`
-* `src/foo/bar/Taxi.js`
+* `travelagent/app/travel-booking/travel-booking.js`
+* `travelagent/app/customer/customer.js`
+* `travelagent/app/travel-booking/travel-booking-form-controller.js`
 
 Where to provide the URL in the javascript sources is marked inline with comments for you. 
 
@@ -215,6 +218,26 @@ Your frontend application, when provided with the correct service URL, provides 
 * View and manage a list of all currently stored TravelAgent Booking records associated with a particular customer.
 
 The application will also generally provide appropriate visual indication of the success or failure of any actions taken.
+
+//== Part 4
+//
+//You will now need to add some advanced features to your aggregate REST resource from Part Three. Namely: you should implement a simple cache for each of your upstream resources. 
+//
+//This should mean that repeated `GET` requests to the _single instance retrieval_ endpoints of a resource (i.e. `.../api/taxi/1` or `.../api/flight/EZ17`) should not cause multiple requests to the underlying REST service.
+//
+//=== Caching 
+//
+//You are advised to use some kind of Map for the purpose of caching. You may use Map classes from the Java standard library or link:https://github.com/google/guava/wiki[Google Guava], a collections library included as a dependency of your project.
+//
+//You should consider the features desirable in a simple Cache of this type.
+//
+//IMPORTANT: You should *NOT* use the BrowserCache functionality provided by RESTEasy as described link:http://docs.jboss.org/resteasy/docs/2.3.7.Final/userguide/html_single/#client_cache[here]
+//
+//TIP: You may notice that certain endpoints in the `ContactRestService` class of the `contacts-swagger` quickstart are annotated with `@Cache`, described link:http://docs.jboss.org/resteasy/docs/2.3.7.Final/userguide/html_single/#Cache_Annotation[here]. This may be important?
+//
+//=== Report Hints
+//
+//* Describe the potential issues with caching HTTP responses in a simple Map, and how you overcame them.
 
 == Submission Guidelines
 
