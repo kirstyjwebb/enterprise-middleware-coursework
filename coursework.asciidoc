@@ -7,7 +7,7 @@ In Part One you will build a simple service, hosted on a Platform as a Service C
 
 In Part Two you will implement some advanced functionality upon the base service from Part One, such as cascading updates for related entities and a transactional endpoint.
 
-In Part Three you will create a new, more complex, service. It will make requests to your Part One service, along with those of two colleagues. This service should also be accompanied by more tests and JSON endpoints. These endpoints, and their responses, should match those expected by an [AngularJS](https://angularjs.org/) client application, which will be provided. If done correctly, you will have a functioning single-page web application (SPA) after this step.
+In Part Three you will create a new, more complex, service. It will make requests to your Part One service, along with those of two colleagues. This service should also be accompanied by more tests and JSON endpoints. These endpoints, and their responses, should match those expected by an link:https://angularjs.org/[AngularJS] client application, which will be provided. If done correctly, you will have a functioning single-page web application (SPA) after this step.
 
 //In Part Four you will implement some advanced functionality upon the complex service from Part Three. Namely: using caching to reduce _upstream_ requests to the simple Part One services. 
 
@@ -59,7 +59,7 @@ The easiest way to work, is to deploy your application to a local version of JBo
 
 During parts 1 & 2 you will only test your API through Arquillian tests and one of the other methods presented to you during the tutorial (The Swagger documentation or CURL).
 
-Before undertaking parts 3 & 4 of the coursework you will need to familiarise yourself with the link:https://angularjs.org/[Angular.js] framework. We suggest going through the link:https://code.angularjs.org/1.2.8/docs/tutorial[official tutorial] to achieve this.
+Before undertaking parts 3 of the coursework it may help to briefly familiarise yourself with the link:https://angularjs.org/[Angular.js] framework. We suggest going through the link:https://docs.angularjs.org/tutorial[official tutorial] to achieve this.
 
 == Part 1
 
@@ -91,7 +91,7 @@ Your API should provide endpoints to perform the following actions on the your r
 * Create & List Taxis, Rooms or Flights.
 * Create, List & Cancel Bookings.
 
-You must document your endpoints using Swagger [@Annotations](https://github.com/swagger-api/swagger-core/wiki/Annotations-1.5.X), including:
+You must document your endpoints using Swagger link:https://github.com/swagger-api/swagger-core/wiki/Annotations-1.5.X[@Annotations], including:
 
 * Their purpose.
 * Their expected URL structure & request method.
@@ -138,7 +138,7 @@ These features are:
 
 You must create a `GuestBooking` ...
 
-TIP: The automatic deletion of related entities should be handled with Hibernate [relationship @Annotations](https://docs.jboss.org/hibernate/stable/annotations/reference/en/html_single/#entity-mapping-association) (e.g. `@ManyToOne`, `@ManyToMany` etc...).
+TIP: The automatic deletion of related entities should be handled with Hibernate link:https://docs.jboss.org/hibernate/stable/annotations/reference/en/html_single/#entity-mapping-association[relationship @Annotations] (e.g. `@ManyToOne`, `@ManyToMany` etc...).
 
 === Report Hints
 

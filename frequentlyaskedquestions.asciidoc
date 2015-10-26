@@ -48,7 +48,7 @@ Failing that we suggest the following useful documentation:
 * link:http://docs.jboss.org/hibernate/orm/4.2/manual/en-US/html/[Hibernate docs]
 * link:http://docs.jboss.org/resteasy/docs/2.3.7.Final/userguide/html_single/index.html[JaxRS / RestEasy docs]
 * link:https://github.com/FasterXML/jackson-docs[Jackson docs (we use v1.9.*)]
-* link:http://hc.apache.org/httpcomponents-client-4.3.x/index.html[Apache HttpClient docs]
+* link:https://github.com/swagger-api/swagger-core/wiki/Annotations-1.5.X[Swagger docs]
 
 == Can I use `"..."` instead of cURL?
 

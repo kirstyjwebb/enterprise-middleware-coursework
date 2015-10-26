@@ -126,11 +126,11 @@ TIP: Your persistence.xml is the configuration file used to specify the connecti
 
 Besides the Arquillian tests run through maven, you will occasionally want to test your API in a more manual fashion, in order to clearly see what information is being sent and received.
 
-It is partly for this purpose that the Contacts-Swagger quickstart uses the [Swagger](http://swagger.io) tool to generate API documentation. 
+It is partly for this purpose that the Contacts-Swagger quickstart uses the link:http://swagger.io[Swagger] tool to generate API documentation. 
 
-Not only does Swagger use [annotations](https://github.com/swagger-api/swagger-core/wiki/Annotations-1.5.X) to automatically generate attractive documentation for API endpoints, but this documentation is interactive.
+Not only does Swagger use link:https://github.com/swagger-api/swagger-core/wiki/Annotations-1.5.X[@Annotations] to automatically generate attractive documentation for API endpoints, but this documentation is interactive.
 This allows you to run each supported http operation from the documentation webpage with sample input and see the response JSON.
-An example of swagger documentation can be found [here](http://petstore.swagger.io/).
+An example of swagger documentation can be found link:http://petstore.swagger.io/[here].
 
 Another common method of manual testing is of APIs is sending http requests from the command line, using a tool called link:http://curl.haxx.se/[cURL].
 
@@ -144,7 +144,13 @@ To give you an example of how you might use cURL to see what your API is doing, 
 
 * to create a new contacts.
 
-    curl -v -H "Content-Type:application/json"  -X POST http://localhost:8080/jboss-contacts-angularjs/rest/contacts/ -d '{"firstName":"John","lastName":"Doe","email":"john.doe@mailinator.com","phoneNumber":"(212) 666-4444","birthDate":"1986-07-20"}'
+    curl -X POST --header "Content-Type: application/json" --header "Accept: application/json" -d "{
+      \"firstName\": \"Alice\",
+      \"lastName\": \"Bob\",
+      \"email\": \"alice@bob.com\",
+      \"phoneNumber\": \"(227) 111-1111\",
+      \"birthDate\": \"1982-10-26\"
+    }" "http://contacts-100937864.rhcloud.com/api/contacts"
 
 The *-v* switch instructs curl to display all possible information, whilst the *-X* switch allows you to specify the HTTP method to be used and *-d* the data to be sent.
 
