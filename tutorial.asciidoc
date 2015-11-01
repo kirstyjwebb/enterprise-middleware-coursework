@@ -69,7 +69,7 @@ Therefore, it is very important that you get this working and become familiar wi
 
 
 == Eclipse Setup
-If you want to use Eclipse to edit the contacts-angularjs example (and your coursework), you must follow these steps:
+If you want to use Eclipse to edit the contacts-swagger example (and your coursework), you must follow these steps:
 
 . *Install m2eclipse*. Google "Install m2eclipse <your Eclipse version>". Note: the procedure differs between eclipse versions
 . *Import the maven project into eclipse*.

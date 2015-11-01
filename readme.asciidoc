@@ -35,7 +35,7 @@ This *MUST NOT* be show to the students, it's sole purpose is to educate teachin
 We also test the model answer on the recommended version of JBoss EAP that the students use, so you can be confident that the coursework is achievable.
 The model answer is in a private repo. You need to contact paul.robinson@redhat.com to gain access.
 
-https://github.com/NewcastleComputingScience/csc8104-model/tree/master/contacts-angularjs[View model answer]
+https://github.com/NewcastleComputingScience/csc8104-model/tree/master/contacts-swagger[View model answer]
 
 == Marking Scheme
 There is also a suggested marking scheme.
