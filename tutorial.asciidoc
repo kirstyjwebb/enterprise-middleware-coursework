@@ -50,9 +50,9 @@ Now you will run a simple example.
 This example provides you with a starting point that you will build on when you come to doing the coursework.
 Therefore, it is very important that you get this working and become familiar with the code.
 
-=== Download JBoss EAP 6.3.0
+=== Download JBoss EAP 6.4.0
 1. Go link:http://www.jboss.org/products/eap/download/[here].
-2. Download the zip distribution of JBoss EAP 6.3.0.GA. _Note:_ You need to make sure you use this version of JBoss EAP as this matches the version you will be using on OpenShift. You will be required to register for the https://community.jboss.org/[JBoss community] website as part of the download process.
+2. Download the zip distribution of JBoss EAP 6.4.0.GA. _Note:_ You need to make sure you use this version of JBoss EAP as this matches the version you will be using on OpenShift. You will be required to register for the https://community.jboss.org/[JBoss community] website as part of the download process.
 3. Unzip JBoss EAP to somewhere on your computer.
 
 === Obtain the Contacts-Swagger Quickstart
@@ -104,7 +104,7 @@ During development of your application you may find it very useful to be able to
 
 === Deploying h2console
 
-Obtain the `h2console.war` file from here: https://github.com/jboss-developer/jboss-eap-quickstarts/tree/6.3.0.GA/h2-console , copy it into the "standalone/deployments" directory of your *EAP_HOME* directory and restart your local JBoss server.
+Obtain the `h2console.war` file from here: https://github.com/jboss-developer/jboss-eap-quickstarts/tree/6.4.0.GA/h2-console , copy it into the "standalone/deployments" directory of your *EAP_HOME* directory and restart your local JBoss server.
 
 === Accessing h2console
 You can access the console at http://localhost:8080/h2console.
