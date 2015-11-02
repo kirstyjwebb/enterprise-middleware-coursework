@@ -134,6 +134,8 @@ These features are:
 * _Cascading_ deletion of related entities. Specifically, if a Commodity entity is deleted then any bookings made *for* it should also be deleted. Likewise, if a Customer entity is deleted, any bookings made *by* it should also be deleted.
 * A `GuestBooking` transactional endpoint which creates a customer and a booking in a single transaction.
 
+TIP: The automatic deletion of related entities should be handled with Hibernate link:https://docs.jboss.org/hibernate/stable/annotations/reference/en/html_single/#entity-mapping-association[relationship @Annotations] (e.g. `@ManyToOne`, `@ManyToMany` etc...).
+
 === Transactional Endpoint.
 
 You must create a `GuestBooking` Bean and RestService class. 
@@ -141,15 +143,20 @@ The Bean is not persisted and should not be a Hibernate `@Entity`.
 It should simply contain fields (and getters and setters) for a `Customer` object and a `Booking` object.
 Its purpose is simply to allow the link:http://wiki.fasterxml.com/JacksonHome[Jackson] JSON library to deserialize a request Body containing both a Customer and a Booking.
 
-Your `GuestBookingRestService` must provide a single method which accepts a POST request containing a `GuestBooking` parameter. This method should then use the `CustomerService` and `BookingService` classes to persist the appropriate fields of the `GuestBooking` object.
+The `GuestBookingRestService` should be a stateless bean (i.e. use the `@Stateless` annotation like other `*RestService` classes) - it should also use link:https://docs.oracle.com/javaee/6/tutorial/doc/bnciy.html[Bean-Managed Transactions] to manually demarcate a transaction using link:https://docs.oracle.com/javaee/6/api/javax/transaction/UserTransaction.html[javax.transaction.UserTransaction]s.
 
-... Bean Managed transactions ...
+In addition to the `@Stateless` annotation you must mark the `GuestBookingRestService` with the link:https://docs.oracle.com/javaee/6/api/javax/ejb/TransactionManagement.html[javax.ejb.TransactionManagement] annotation with the value `javax.ejb.TransactionManagementType.BEAN`. 
+This specifies that you wish to manually manage transaction boundaries inside the class.
 
-TIP: The automatic deletion of related entities should be handled with Hibernate link:https://docs.jboss.org/hibernate/stable/annotations/reference/en/html_single/#entity-mapping-association[relationship @Annotations] (e.g. `@ManyToOne`, `@ManyToMany` etc...).
+Your `GuestBookingRestService` must provide a single method which accepts a `GuestBooking` parameter and serves a *POST* request. 
+This method should then use the `CustomerService` and `BookingService` classes to persist the appropriate fields of the `GuestBooking` object inside a Usertransaction and return a Response containing the Booking, and a status of 201 if successful. 
+
+If either Entity should fail to be persisted, you should rollback the transaction with an appropriate error message.
 
 === Report Hints
 
 * Why are transactions useful here? What scenario do they help to prevent.
+* What is the advantage of the JTA? How might it help when using multiple distinct transactional services?
 * Discuss the benefits and drawbacks of using Hibernate @Annotations to automatically handle entity relationships. Highlight any pitfalls you encountered.
 
 == Part 3
