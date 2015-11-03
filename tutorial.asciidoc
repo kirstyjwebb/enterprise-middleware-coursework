@@ -57,15 +57,15 @@ Therefore, it is very important that you get this working and become familiar wi
 
 === Obtain the Contacts-Swagger Quickstart
 
-1. Visit the NewcastleComputingScience/jboss-wfk-quickstarts github repo release page link:https://github.com/NewcastleComputingScience/jboss-wfk-quickstarts/releases/tag/v2.7.0-SNAPSHOT%2BNCL201415-RC4[here].
+1. Visit the NewcastleComputingScience/jboss-wfk-quickstarts github repo release page link:https://github.com/NewcastleComputingScience/jboss-wfk-quickstarts/releases/tag/v2.7.0%2BNCL201516-RC1[here].
 2. Click on the *Download ZIP* link to obtain all the Quickstarts
 3. Unzip the download to somewhere on your computer.
 4. Open a terminal and go to the `contacts-swagger` directory in the quickstart bundle you just unzipped.
 
 
 === Run the Quickstart
-1. Step through the instructions on the Contacts-Swagger quickstart page link:https://github.com/NewcastleComputingScience/jboss-wfk-quickstarts/tree/v2.7.0-SNAPSHOT+NCL201415-RC4/contacts-swagger[here], upto and including section "Run the Arquillian Functional Tests". Make sure you follow the "Configure Maven" section correctly as these instructions are important.
-2. Now follow the "Build and Deploy the Quickstart to OpenShift" instructions link:https://github.com/NewcastleComputingScience/jboss-wfk-quickstarts/blob/v2.7.0-SNAPSHOT+NCL201415-RC4/README.md#build-and-deploy-the-quickstart---to-openshift[here], including all the sub-sections that take you to the end of the page.
+1. Step through the instructions on the Contacts-Swagger quickstart page link:https://github.com/NewcastleComputingScience/jboss-wfk-quickstarts/tree/v2.7.0%2BNCL201516-RC1/contacts-swagger[here], upto and including section "Run the Arquillian Tests". Make sure you follow the "Configure Maven" section correctly as these instructions are important.
+2. Now follow the "Build and Deploy the Quickstart to OpenShift" instructions link:https://github.com/NewcastleComputingScience/jboss-wfk-quickstarts/tree/v2.7.0%2BNCL201516-RC1#build-and-deploy-the-quickstart---to-openshift[here], including all the sub-sections that take you to the end of the page.
 
 
 == Eclipse Setup
