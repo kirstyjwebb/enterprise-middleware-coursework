@@ -69,3 +69,7 @@ Your own records should record the relationship between the actual customer (Joh
 
 Once you have decided on whose services to use in part 3 (and the details of your travel agent customer), we advise that you ask those students to add your Travel Agent customer's details to their import.sql.
 This will mean that your travel agent customer will always exist on all external services it attempts to make bookings with.
+
+== I have added Swagger annotations but the service still doesn't show up
+
+When adding new packages for your new restful resources, make sure to add them to the Swagger config in ContactServiceApplication, as per the comments in that class. You will need to provide a single string containing each full package name (e.g. `"org.jboss.quickstart.wfk.contact,org.jboss.quickstart.wfk.customer,..."`) to the `beanConfig.setResourcePackage(...)` method.
