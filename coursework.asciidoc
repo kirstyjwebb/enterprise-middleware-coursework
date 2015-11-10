@@ -140,7 +140,7 @@ These features are:
 * _Cascading_ deletion of related entities. Specifically, if a Commodity entity is deleted then any bookings made *for* it should also be deleted. Likewise, if a Customer entity is deleted, any bookings made *by* it should also be deleted.
 * A `GuestBooking` transactional endpoint which creates a customer and a booking in a single transaction.
 
-TIP: The automatic deletion of related entities should be handled with JPA link:http://docs.oracle.com/javaee/6/tutorial/doc/bnbqa.html[Entity relationship @Annotations] (e.g. `@ManyToOne`, `@ManyToMany` etc...), which are provided by link:https://docs.jboss.org/hibernate/stable/annotations/reference/en/html_single/#entity-mapping-association[Hibernate].
+IMPORTANT: The automatic deletion of related entities *must* be handled with JPA link:http://docs.oracle.com/javaee/6/tutorial/doc/bnbqa.html[Entity relationship @Annotations] (e.g. `@ManyToOne`, `@ManyToMany` etc...), which are provided by link:https://docs.jboss.org/hibernate/stable/annotations/reference/en/html_single/#entity-mapping-association[Hibernate]. You should therefore implement all relationships between entities using these annotations, even if you did not do so in Part 1.
 
 === Transactional Endpoint.
 
