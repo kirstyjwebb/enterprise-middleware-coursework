@@ -117,7 +117,7 @@ You will probably need an Entity for each of your resources.
 2. Taxi/Flight/Hotel. A bean to hold the data you wish to collect about each item you have available for booking.
 3. Booking. A bean representing the booking and linking to the customer who made the booking and to the item being booked.
 
-TIP: Keep these entities simple. Just provide the minimum information required to fullfil the requirements. Use @Annotations, like those found in the base _contacts-swagger_ `Contact` class, to specify validation constraints on your information (like the minimum length of a name). 
+TIP: Keep these entities simple. Just provide the minimum information required to fullfil the requirements. Use @Annotations, like those found in the base _contacts-swagger_ `Contact` class, to specify validation constraints on your information (like the minimum length of a name). You may however wish to read about link:http://docs.oracle.com/javaee/6/tutorial/doc/bnbqa.html[entity relationship @Annotations].
 
 TIP: When you are testing your application you may find it useful to pre-populate your database with a number of example entities. One way to achieve this is to add SQL insert statements into src/main/resources/import.sql.
 
