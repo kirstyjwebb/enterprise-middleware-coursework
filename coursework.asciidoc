@@ -142,6 +142,8 @@ These features are:
 
 IMPORTANT: The automatic deletion of related entities *must* be handled with JPA link:http://docs.oracle.com/javaee/6/tutorial/doc/bnbqa.html[Entity relationship @Annotations] (e.g. `@ManyToOne`, `@ManyToMany` etc...), which are provided by link:https://docs.jboss.org/hibernate/stable/annotations/reference/en/html_single/#entity-mapping-association[Hibernate]. You should therefore implement all relationships between entities using these annotations, even if you did not do so in Part 1.
 
+TIP: This will mean that you should store full objects (or lists of objects) in your models, rather than just Ids. You should be careful to familiarise yourself with the [Jackson JSON annotations](https://github.com/FasterXML/jackson-annotations/wiki/Jackson-Annotations) if you have not already (particularly `@JsonIgnore` which prevents the "recursive" definition problem). 
+
 === Transactional Endpoint.
 
 You must create a `GuestBooking` Bean and RestService class. 
