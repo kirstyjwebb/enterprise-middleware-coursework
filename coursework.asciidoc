@@ -151,6 +151,8 @@ The Bean is not persisted and should not be a Hibernate `@Entity`.
 It should simply contain fields (and getters and setters) for a `Customer` object and a `Booking` object.
 Its purpose is simply to allow the link:http://wiki.fasterxml.com/JacksonHome[Jackson] JSON library to deserialize a request Body containing both a Customer and a Booking.
 
+TIP: You may leave the `customer` field of a `Booking` object's JSON blank, then use `setCustomer(Customer c)` to set a `Booking`'s customer to be a newly created `Customer` object, before attempting to persist the `Booking` itself.
+
 The `GuestBookingRestService` should be a stateless bean (i.e. use the `@Stateless` annotation like other `*RestService` classes) - it should also use link:https://docs.oracle.com/javaee/6/tutorial/doc/bnciy.html[Bean-Managed Transactions] to manually demarcate a transaction using link:https://docs.oracle.com/javaee/6/api/javax/transaction/UserTransaction.html[javax.transaction.UserTransaction]s.
 
 In addition to the `@Stateless` annotation you must mark the `GuestBookingRestService` with the link:https://docs.oracle.com/javaee/6/api/javax/ejb/TransactionManagement.html[javax.ejb.TransactionManagement] annotation with the value `javax.ejb.TransactionManagementType.BEAN`. 
@@ -222,7 +224,7 @@ As with Part 1, you should document your API endpoints using Swagger @Annotation
 
 You have been provided with a complete frontend for your Travel Agent application, written in Javascript using the link:https://angularjs.org/[Angular.js] framework. This code found in the contacts-swagger quickstart in `src/main/webapp/travelagent/`. When your service is deployed, the frontend application will be accessible at link:http://localhost:8080/jboss-contacts-swagger/travelagent/[localhost:8080/jboss-contacts-swagger/travelagent/] 
 
-You must modify this frontend application to correctly interact with, and act as a client for, the TravelAgent API you have produced.
+You may modify this frontend application to correctly interact with, and act as a client for, the TravelAgent API you have produced.
 To do this you simply provide the base urls which corresponds to the url of your TravelAgent REST endpoints in the files:
 
 * `travelagent/app/travel-booking/travel-booking.js`
