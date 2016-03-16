@@ -20,7 +20,7 @@ This sample application us then used to build upon during the coursework.
 
 link:./tutorial.asciidoc[View the tutorial document]
 
-There is also a video available to https://www.youtube.com/watch?v=JGm2yS4JIog[watch here].
+There is also a video available to https://www.youtube.com/watch?v=YK_YZNBz97A[watch here].
 In this video a member of staff, at Newcastle University, walks through the tutorial with the students.
 This video has a few Newcastle specific bits in, but could be valuable to your students anyway, providing they understand this caveat.
 
