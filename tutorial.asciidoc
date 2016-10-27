@@ -37,13 +37,15 @@ To create an account:
 
 Once you have confirmed (as mentioned above) your email address with OpenShift, you will be directed to a web page titled https://www.openshift.com/get-started["Get Started"].
 On this page you will need to select the *Windows* option at the top of the page and follow the "Installing the Client Tools on Windows" instructions subsequently displayed.
-Once you have completed these steps you should have successfully created an OpenShift account, installed Ruby and the Openshift RHC Client Tools on your computer.
+Once you have completed these steps you should have successfully created an OpenShift account, installed Ruby 2.0.0 and the Openshift RHC Client Tools on your computer.
 
 * *Setup*. When running the `rhc setup` command you will be asked for your openshift *login* and *password*. Your login details are those used to register for OpenShift. When asked to provide a namespace for your projects, you should provide your student number (e.g 100826753).
 
 IMPORTANT: If you encounter an "Access is denied" warning when running the RubyInstaller setup program, you should copy the installer into `C:/temp`, right click the executable and select "Run as Administrator". You will be prompted for your admin password for your machine, and Ruby should then install successfully.
 
 IMPORTANT: If you encounter a "Permission denied" warning when installing the rhc gem, you should run the Command Prompt as an administrator (right click the shortcut and select "Run As Administrator") and retry. You will be prompted for your admin password for your machine, and the rhc gem should then install successfully.
+
+IMPORTANT: If you encounter an "Error installing rhc" when running the command `gem install rhc` you have likely installed Ruby 1.9.3. You should uninstall RubyInstaller and instead instead select one of the Ruby 2.0.0 installers from http://http://rubyinstaller.org/downloads/["RubyInstaller Downloads"].
 
 == Run Example
 Now you will run a simple example.
